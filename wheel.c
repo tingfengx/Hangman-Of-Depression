@@ -9,10 +9,6 @@
 /* Starting with words (returned by read_words), generate and return
    a new word list with only those words of length len. Also, fill
    words_remaining with the number of words in the new word list.
-
-   Allocate exactly enough memory to store only those words of length len.
-
-   Note: Do not make copies of the words.
 */
 char **prune_word_list(char **words, int len, int *words_remaining) {
     char **word_list;
