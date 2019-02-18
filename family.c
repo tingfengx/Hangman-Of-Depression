@@ -142,6 +142,9 @@ void deallocate_families(Family *fam_list) {
 /* Return whether or not word contains letter
     - returns 1 if it contains such letter
     - returns 0 if it does not
+	
+	This is a helper function to speed up whether or not if we need
+	to extract the signature, by calling extract_signature.
 */
 int contains(char *word, char letter){
     int i = 0;
@@ -225,8 +228,10 @@ char **get_new_word_list(Family *fam) {
 }
 
 
-/* Return a pointer to a random word from fam. 
-   Use rand (man 3 rand) to generate random integers.
+/* Return a pointer to a random word from fam.
+   Used when the user lose and the computer opponent randomly
+   chooses one word that doesn't contain any of the
+   inputted characters.
 */
 char *get_random_word_from_family(Family *fam) {
     int family_word_count = fam->num_words;
