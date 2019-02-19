@@ -13,10 +13,10 @@
 char **prune_word_list(char **words, int len, int *words_remaining) {
     char **word_list;
     int cache_index = 0;
-	*words_remaining = 0;
+    *words_remaining = 0;
     char *word = words[cache_index];
-    while(word != NULL){
-        if (strlen(word) == len){
+    while (word != NULL) {
+        if (strlen(word) == len) {
             *words_remaining += 1;
         }
         cache_index += 1;
@@ -24,7 +24,7 @@ char **prune_word_list(char **words, int len, int *words_remaining) {
     }
 
     word_list = malloc(sizeof(char *) * (*words_remaining + 1));
-    if (word_list == NULL){
+    if (word_list == NULL) {
         perror("malloc error in prune_word_list");
         exit(1);
     }
@@ -34,15 +34,15 @@ char **prune_word_list(char **words, int len, int *words_remaining) {
     int i = 0;
     word = words[0];
     cache_index = 0;
-    while (word != NULL){
-        if(strlen(word) == len){
+    while (word != NULL) {
+        if (strlen(word) == len) {
             word_list[i] = word;
             i += 1;
         }
         cache_index += 1;
         word = words[cache_index];
     }
-	word_list[*words_remaining] = NULL;
+    word_list[*words_remaining] = NULL;
     return word_list;
 }
 
@@ -68,18 +68,18 @@ char **get_word_list_of_length(char **words, int *len) {
     char buffer[BUF_SIZE];
     char *remainder;
     printf("Length of words to use? ");
-    if (fgets(buffer, BUF_SIZE, stdin) == NULL){
+    if (fgets(buffer, BUF_SIZE, stdin) == NULL) {
         perror("fgets failed in get_word_list_of_length");
         exit(1);
     }
     *len = strtol(buffer, &remainder, 10);
-    if (*remainder != '\n'){ // The input was not all numeric
+    if (*remainder != '\n') { // The input was not all numeric
         return get_word_list_of_length(words, len);
     }
-	/* signature reminder: char** prune_word_list(char**, int, int *)  */
-	int family_member_count;
-    char **word_list = prune_word_list(words, *len, &family_member_count);   
-	if(family_member_count < 1){
+    /* signature reminder: char** prune_word_list(char**, int, int *)  */
+    int family_member_count;
+    char **word_list = prune_word_list(words, *len, &family_member_count);
+    if (family_member_count < 1) {
         deallocate_pruned_word_list(word_list);
         printf("There are no words of that length.\n");
         return get_word_list_of_length(words, len);
@@ -134,7 +134,7 @@ void play_round(char **words) {
     char *current_word; /*Representation of current word; each blank is a - */
     char *sig; /*Signature of a family*/
     char letters_guessed[26] = {'\0'}; /*Guesses so far*/
-    
+
     /*Get a valid word_list from length (one that has at least one word)*/
     word_list = get_word_list_of_length(words, &len);
 
@@ -151,7 +151,7 @@ void play_round(char **words) {
         guesses = strtol(input_buffer, NULL, 10);
         if (guesses < 1 || guesses > 26) {
             printf("You entered an invalid number!\n\n");
-    	}
+        }
     }
 
     /*Word starts off as all unknowns*/
@@ -188,8 +188,7 @@ void play_round(char **words) {
                 printf("You win! The word was %s.\n", current_word);
                 game_over = 1;
             }
-        }
-        else {
+        } else {
             printf("There is no %c in the word.\n", guess);
             guesses--;
             game_over = guesses <= 0;
@@ -200,9 +199,9 @@ void play_round(char **words) {
 
     if (guesses == 0) {
         printf("You lose! The word was %s.\n",
-                get_random_word_from_family(biggest_fam));
+               get_random_word_from_family(biggest_fam));
     }
-    
+
     deallocate_pruned_word_list(word_list);
     free(current_word);
     deallocate_families(famlist);
@@ -214,7 +213,7 @@ void play_round(char **words) {
 int main(void) {
     char again;
     char **words;
-    
+
     words = read_words("dictionary.txt");
     init_family(1024);
 
@@ -229,7 +228,7 @@ int main(void) {
         getchar();
 
     } while (again == 'y');
-  
+
     deallocate_words(words);
     return 0;
 }

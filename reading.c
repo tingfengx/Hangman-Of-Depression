@@ -12,8 +12,8 @@ char **read_words(char *filename) {
 
     fp = fopen(filename, "r");
     if (!fp) {
-      perror("fopen");
-      exit(1);
+        perror("fopen");
+        exit(1);
     }
 
     word_count = 0;
@@ -25,7 +25,7 @@ char **read_words(char *filename) {
 
     /*Get and store all words*/
     while (fgets(buffer, MAX_WORD_LENGTH, fp)) {
-        if(buffer[strlen(buffer) - 1] == '\n') {
+        if (buffer[strlen(buffer) - 1] == '\n') {
             buffer[strlen(buffer) - 1] = '\0'; /*Delete newline*/
         }
         words[word_count] = malloc(strlen(buffer) + 1);
@@ -47,7 +47,7 @@ char **read_words(char *filename) {
 /* Deallocate all memory acquired by read_words. */
 void deallocate_words(char **words) {
     char **p = words;
-    while(*p) {
+    while (*p) {
         free(*p);
         p++;
     }
