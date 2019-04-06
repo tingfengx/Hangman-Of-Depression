@@ -17,17 +17,13 @@
 
 
 #ifndef PORT
-    #define PORT 50884
+    #define PORT 30001
 #endif
 #define MAX_QUEUE 5
 
 
 void add_player(struct client **top, int fd, struct in_addr addr);
 void remove_player(struct client **top, int fd);
-/* These are some of the function prototypes that we used in our solution 
- * You are not required to write functions that match these prototypes, but
- * you may find the helpful when thinking about operations in your program.
- */
 /* Send the message in outbuf to all clients */
 void broadcast(struct game_state *game, char *outbuf);
 void announce_turn(struct game_state *game);
